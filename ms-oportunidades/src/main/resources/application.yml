@@ -1,0 +1,41 @@
+server:
+  port: ${PORT:8080}
+
+spring:
+  application:
+    name: ms-oportunidades
+  datasource:
+    # Azure SQL: jdbc:sqlserver://<servidor>.database.windows.net:1433;database=<banco>;encrypt=true;loginTimeout=30
+    url: ${AZURE_SQL_URL:jdbc:sqlserver://localhost:1433;database=minicrm;encrypt=false}
+    username: ${AZURE_SQL_USUARIO:sa}
+    password: ${AZURE_SQL_SENHA:}
+  jpa:
+    hibernate:
+      ddl-auto: none
+    open-in-view: false
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: UTC
+        type:
+          preferred_instant_jdbc_type: TIMESTAMP
+  flyway:
+    enabled: true
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+
+app:
+  servicebus:
+    connection: ${SERVICEBUS_CONNECTION:}
+    fila: oportunidade-ganha
+
+springdoc:
+  swagger-ui:
+    path: /docs
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
