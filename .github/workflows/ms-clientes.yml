@@ -3,7 +3,7 @@ name: ms-clientes
 on:
   push:
     branches: [main]
-    paths: ['ms-clientes/**', '.github/workflows/ms-clientes.yml']
+    paths: ['ms-clientes/**', '.github/workflows/ms-clientes.yml', '.github/scripts/**']
     tags: ['ms-clientes-v*']
   pull_request:
     paths: ['ms-clientes/**']
@@ -12,6 +12,10 @@ on:
 defaults:
   run:
     working-directory: ms-clientes
+
+permissions:
+  contents: read
+  checks: write
 
 jobs:
   testes:
@@ -25,6 +29,11 @@ jobs:
           cache: maven
       - name: Testes unitários, de arquitetura e da API
         run: mvn -B verify
+      - name: Resumo dos testes (check run)
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: ../.github/scripts/resumo-surefire.sh ms-clientes target/surefire-reports
       - name: Relatório dos testes
         if: always()
         uses: actions/upload-artifact@v4
