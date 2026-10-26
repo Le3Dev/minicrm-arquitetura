@@ -1,0 +1,29 @@
+%%{init: {'theme':'base','themeVariables':{'fontFamily':'Inter, Arial','fontSize':'14px','lineColor':'#555'}}}%%
+flowchart LR
+    gw["<b>API Gateway</b><br/>[Container]"]:::container
+    subgraph bff["BFF [Container: Node.js / NestJS] — aluno B"]
+        direction TB
+        rotas["Rotas proxy<br/>/clientes/* · /oportunidades/*"]:::componente
+        agg["AggregatedData<br/>GET /aggregated-data"]:::componente
+        escopo["Escopo do usuário<br/>(RF15: responsáveis visíveis)"]:::componente
+        cli["Clientes HTTP<br/>MS Clientes · MS Oportunidades · Function"]:::componente
+    end
+    msc["<b>MS Clientes</b>"]:::container
+    mso["<b>MS Oportunidades</b>"]:::container
+    fn["<b>Azure Function</b><br/>/api/indicadores"]:::container
+    gw --> rotas & agg
+    rotas --> escopo
+    agg --> escopo
+    escopo --> cli
+    cli -- "Promise.allSettled" --> msc & mso
+    cli -- "clientes + oportunidades" --> fn
+    classDef pessoa fill:#08427b,stroke:#052e56,color:#fff
+    classDef sistema fill:#1168bd,stroke:#0b4884,color:#fff
+    classDef externo fill:#999999,stroke:#6b6b6b,color:#fff
+    classDef container fill:#438dd5,stroke:#2e6295,color:#fff
+    classDef banco fill:#438dd5,stroke:#2e6295,color:#fff
+    classDef dono_a fill:#2a78d6,stroke:#1b5ca8,color:#fff
+    classDef dono_b fill:#b05a2a,stroke:#7c3f1d,color:#fff
+    classDef componente fill:#85bbf0,stroke:#5d82a8,color:#0b2a4a
+    classDef porta fill:#fff,stroke:#5d82a8,color:#0b2a4a,stroke-dasharray:4 3
+    style bff fill:#f6f5f1,stroke:#333,color:#222

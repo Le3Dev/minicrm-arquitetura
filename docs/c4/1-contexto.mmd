@@ -1,0 +1,22 @@
+%%{init: {'theme':'base','themeVariables':{'fontFamily':'Inter, Arial','fontSize':'15px','lineColor':'#555'}}}%%
+flowchart TB
+    vend["<b>Vendedor</b><br/>[Pessoa]<br/>Gerencia a própria carteira,<br/>registra interações e move o funil"]:::pessoa
+    ger["<b>Gerente / Administrador</b><br/>[Pessoa]<br/>Acompanha a equipe, o funil<br/>e o ranking de vendedores"]:::pessoa
+    crm["<b>Mini CRM</b><br/>[Sistema de software]<br/>Clientes, interações, funil de vendas<br/>e indicadores, em arquitetura distribuída<br/>na Azure e na AWS"]:::sistema
+    atlas["<b>MongoDB Atlas</b><br/>[Sistema externo]<br/>Banco de documentos gerenciado"]:::externo
+    azure["<b>Microsoft Azure</b><br/>[Sistema externo]<br/>Container Apps, Functions,<br/>Service Bus, Azure SQL"]:::externo
+    aws["<b>AWS API Gateway</b><br/>[Sistema externo]<br/>Entrada única, API key, throttling"]:::externo
+    vend -- "Usa pelo navegador<br/>[HTTPS]" --> crm
+    ger -- "Usa pelo navegador<br/>[HTTPS]" --> crm
+    crm -- "Grava clientes" --> atlas
+    crm -- "Executa serviços, eventos<br/>e oportunidades" --> azure
+    crm -- "Recebe as requisições do front" --> aws
+    classDef pessoa fill:#08427b,stroke:#052e56,color:#fff
+    classDef sistema fill:#1168bd,stroke:#0b4884,color:#fff
+    classDef externo fill:#999999,stroke:#6b6b6b,color:#fff
+    classDef container fill:#438dd5,stroke:#2e6295,color:#fff
+    classDef banco fill:#438dd5,stroke:#2e6295,color:#fff
+    classDef dono_a fill:#2a78d6,stroke:#1b5ca8,color:#fff
+    classDef dono_b fill:#b05a2a,stroke:#7c3f1d,color:#fff
+    classDef componente fill:#85bbf0,stroke:#5d82a8,color:#0b2a4a
+    classDef porta fill:#fff,stroke:#5d82a8,color:#0b2a4a,stroke-dasharray:4 3

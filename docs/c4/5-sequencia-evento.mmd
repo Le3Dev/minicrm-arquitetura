@@ -1,0 +1,24 @@
+%%{init: {'theme':'base','themeVariables':{'fontFamily':'Inter, Arial','fontSize':'14px'}}}%%
+sequenceDiagram
+    autonumber
+    actor V as Vendedor
+    participant F as MF Oportunidades
+    participant G as API Gateway
+    participant B as BFF
+    participant O as MS Oportunidades
+    participant S as Service Bus
+    participant Fn as Azure Function
+    participant C as MS Clientes
+    V->>F: Fecha a oportunidade como ganha
+    F->>G: PATCH /oportunidades/123 (x-api-key)
+    G->>B: encaminha
+    B->>O: PATCH /oportunidades/123 {etapa: Fechado, resultado: ganho}
+    O->>O: grava no Azure SQL
+    O-)S: OportunidadeGanha {eventId, clienteId, valor}
+    O-->>B: 200 oportunidade
+    B-->>F: 200
+    S-)Fn: entrega a mensagem
+    Fn->>C: POST /clientes/{id}/ativacao {eventoId}
+    C->>C: Prospect → Ativo (ignora eventId repetido)
+    C-->>Fn: {resultado: ATIVADO}
+    Note over S,Fn: falha temporária → exceção → nova entrega,<br/>após 5 tentativas → dead-letter

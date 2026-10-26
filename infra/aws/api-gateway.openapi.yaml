@@ -1,0 +1,62 @@
+openapi: 3.0.1
+info:
+  title: minicrm-gateway
+  version: 1.0.0
+  description: |
+    AWS API Gateway (REST API) — porta de entrada única do Mini CRM.
+    Todas as rotas exigem API key (header x-api-key) e são encaminhadas ao BFF.
+    Importe com infra/aws/criar-gateway.sh (substitui __BFF_URL__ pela URL do BFF).
+x-amazon-apigateway-api-key-source: HEADER
+x-amazon-apigateway-gateway-responses:
+  DEFAULT_4XX:
+    responseParameters:
+      gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
+      gatewayresponse.header.Access-Control-Allow-Headers: "'Content-Type,x-api-key'"
+  DEFAULT_5XX:
+    responseParameters:
+      gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
+paths:
+  /{proxy+}:
+    x-amazon-apigateway-any-method:
+      summary: Encaminha qualquer rota ao BFF (CRUD de clientes e oportunidades, /aggregated-data, /docs)
+      security:
+        - api_key: []
+      parameters:
+        - name: proxy
+          in: path
+          required: true
+          schema: { type: string }
+      x-amazon-apigateway-integration:
+        type: http_proxy
+        httpMethod: ANY
+        uri: __BFF_URL__/{proxy}
+        passthroughBehavior: when_no_match
+        timeoutInMillis: 29000
+        requestParameters:
+          integration.request.path.proxy: method.request.path.proxy
+    options:
+      summary: Preflight de CORS (sem API key)
+      responses:
+        '200':
+          description: CORS
+          headers:
+            Access-Control-Allow-Origin: { schema: { type: string } }
+            Access-Control-Allow-Methods: { schema: { type: string } }
+            Access-Control-Allow-Headers: { schema: { type: string } }
+      x-amazon-apigateway-integration:
+        type: mock
+        requestTemplates:
+          application/json: '{"statusCode": 200}'
+        responses:
+          default:
+            statusCode: '200'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+              method.response.header.Access-Control-Allow-Methods: "'GET,POST,PUT,PATCH,DELETE,OPTIONS'"
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,x-api-key'"
+components:
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: x-api-key
+      in: header

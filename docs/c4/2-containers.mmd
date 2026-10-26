@@ -1,0 +1,46 @@
+%%{init: {'theme':'base','themeVariables':{'fontFamily':'Inter, Arial','fontSize':'14px','lineColor':'#555'}}}%%
+flowchart TB
+    usuario["<b>Usuário</b><br/>[Pessoa]<br/>Vendedor, Gerente ou Admin"]:::pessoa
+    subgraph crm["Mini CRM [Sistema]"]
+        direction TB
+        subgraph front["Front-end — Vercel"]
+            direction LR
+            shell["<b>Shell</b><br/>[React + Module Federation host]<br/>Layout, rotas, login, dashboard"]:::dono_b
+            mfc["<b>MF Clientes</b><br/>[React + MF remote]<br/>Carteira e interações"]:::dono_a
+            mfo["<b>MF Oportunidades</b><br/>[React + MF remote]<br/>Funil de vendas"]:::dono_b
+        end
+        gw["<b>API Gateway</b><br/>[AWS REST API]<br/>Roteamento, API key, throttling, CORS"]:::dono_a
+        bff["<b>BFF</b><br/>[Node.js · Container Apps]<br/>Proxy do CRUD, escopo do usuário (RF15),<br/>GET /aggregated-data"]:::dono_b
+        msc["<b>MS Clientes</b><br/>[Java 21 · Spring Boot · Container Apps]<br/>Clientes, interações, ativação (RF30)"]:::dono_a
+        mso["<b>MS Oportunidades</b><br/>[Java 21 · Spring Boot · Container Apps]<br/>Funil, fechamento ganho/perdido"]:::dono_b
+        fn["<b>Azure Function</b><br/>[Java 21 · Flex Consumption]<br/>HTTP: /api/indicadores<br/>Service Bus: oportunidade-ganha"]:::dono_a
+        sb[("<b>Service Bus</b><br/>[Azure · fila]<br/>oportunidade-ganha")]:::dono_a
+        mongo[("<b>MongoDB Atlas</b><br/>[M0]<br/>coleção clientes")]:::dono_a
+        sql[("<b>Azure SQL</b><br/>[serverless gratuito]<br/>tabela oportunidades")]:::dono_b
+    end
+    usuario -- "HTTPS" --> shell
+    shell -. "carrega remoteEntry.js" .-> mfc
+    shell -. "carrega remoteEntry.js" .-> mfo
+    mfc -- "HTTPS + x-api-key" --> gw
+    mfo -- "HTTPS + x-api-key" --> gw
+    shell -- "HTTPS + x-api-key" --> gw
+    gw -- "HTTP proxy" --> bff
+    bff -- "REST /clientes" --> msc
+    bff -- "REST /oportunidades" --> mso
+    bff -- "POST /api/indicadores" --> fn
+    msc -- "Spring Data" --> mongo
+    mso -- "JPA + Flyway" --> sql
+    mso -- "publica OportunidadeGanha" --> sb
+    sb -- "dispara" --> fn
+    fn -- "POST /clientes/{id}/ativacao" --> msc
+    classDef pessoa fill:#08427b,stroke:#052e56,color:#fff
+    classDef sistema fill:#1168bd,stroke:#0b4884,color:#fff
+    classDef externo fill:#999999,stroke:#6b6b6b,color:#fff
+    classDef container fill:#438dd5,stroke:#2e6295,color:#fff
+    classDef banco fill:#438dd5,stroke:#2e6295,color:#fff
+    classDef dono_a fill:#2a78d6,stroke:#1b5ca8,color:#fff
+    classDef dono_b fill:#b05a2a,stroke:#7c3f1d,color:#fff
+    classDef componente fill:#85bbf0,stroke:#5d82a8,color:#0b2a4a
+    classDef porta fill:#fff,stroke:#5d82a8,color:#0b2a4a,stroke-dasharray:4 3
+    style crm fill:#f6f5f1,stroke:#333,color:#222
+    style front fill:#ffffff,stroke:#999,color:#222

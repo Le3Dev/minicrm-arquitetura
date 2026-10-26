@@ -1,0 +1,55 @@
+%%{init: {'theme':'base','themeVariables':{'fontFamily':'Inter, Arial','fontSize':'14px','lineColor':'#555'}}}%%
+flowchart LR
+    bff["<b>BFF</b><br/>[Container]"]:::container
+    fn["<b>Azure Function</b><br/>[Container]"]:::container
+    subgraph ms["MS Clientes [Container: Spring Boot]"]
+        direction LR
+        subgraph api["api"]
+            direction TB
+            c1["Pesquisar / Buscar<br/>ClienteController"]:::componente
+            c2["Cadastrar / Atualizar /<br/>ExcluirClienteController"]:::componente
+            c3["RegistrarInteracao<br/>Controller"]:::componente
+            c4["AtivarCliente<br/>Controller"]:::componente
+        end
+        subgraph app["application (vertical slices)"]
+            direction TB
+            h1["pesquisarclientes · buscarcliente"]:::componente
+            h2["cadastrarcliente · atualizarcliente ·<br/>excluircliente"]:::componente
+            h3["registrarinteracao"]:::componente
+            h4["ativarcliente<br/>(idempotente por eventoId)"]:::componente
+        end
+        subgraph dom["domain"]
+            direction TB
+            ent["<b>Cliente</b> · Interacao<br/>regras RF03, RF05, RF26, RF30"]:::componente
+            porta["«porta»<br/>ClienteRepository"]:::porta
+        end
+        subgraph infra["infrastructure"]
+            direction TB
+            mongoRepo["MongoClienteRepository<br/>MongoTemplate + @Version"]:::componente
+            mem["InMemoryClienteRepository<br/>(testes)"]:::componente
+        end
+        cfg["config<br/>raiz de composição"]:::porta
+    end
+    db[("MongoDB Atlas")]:::banco
+    bff -- "REST" --> c1 & c2 & c3
+    fn -- "POST /ativacao" --> c4
+    c1 --> h1
+    c2 --> h2
+    c3 --> h3
+    c4 --> h4
+    h1 & h2 & h3 & h4 --> ent
+    h1 & h2 & h3 & h4 --> porta
+    mongoRepo -. "implementa" .-> porta
+    mem -. "implementa" .-> porta
+    mongoRepo --> db
+    cfg -. "liga porta → adaptador" .-> mongoRepo
+    classDef pessoa fill:#08427b,stroke:#052e56,color:#fff
+    classDef sistema fill:#1168bd,stroke:#0b4884,color:#fff
+    classDef externo fill:#999999,stroke:#6b6b6b,color:#fff
+    classDef container fill:#438dd5,stroke:#2e6295,color:#fff
+    classDef banco fill:#438dd5,stroke:#2e6295,color:#fff
+    classDef dono_a fill:#2a78d6,stroke:#1b5ca8,color:#fff
+    classDef dono_b fill:#b05a2a,stroke:#7c3f1d,color:#fff
+    classDef componente fill:#85bbf0,stroke:#5d82a8,color:#0b2a4a
+    classDef porta fill:#fff,stroke:#5d82a8,color:#0b2a4a,stroke-dasharray:4 3
+    style ms fill:#f6f5f1,stroke:#333,color:#222
