@@ -1,0 +1,13 @@
+# Java
+target/
+*.class
+.idea/
+*.iml
+.vscode/
+# Node
+node_modules/
+dist/
+coverage/
+# segredos
+.env
+local.settings.json

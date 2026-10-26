@@ -1,0 +1,19 @@
+# Sobe o MS Clientes com um MongoDB local: docker compose up --build
+# Swagger: http://localhost:8081/docs
+services:
+  mongo:
+    image: mongo:7
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-dados:/data/db
+  ms-clientes:
+    build: .
+    depends_on:
+      - mongo
+    environment:
+      MONGODB_URI: mongodb://mongo:27017/minicrm
+    ports:
+      - "8081:8080"
+volumes:
+  mongo-dados:
