@@ -21,6 +21,7 @@ CAE="cae-minicrm"
 MS_CLIENTES="ms-clientes"
 STORAGE="stminicrm$SUFIXO"
 FUNC="func-minicrm-$SUFIXO"
+# Tag da imagem no Docker Hub (ms-clientes-v1.0.0 já publicada; novas versões usam v1.0.0, v1.0.1…)
 TAG="${TAG:-ms-clientes-v1.0.0}"
 
 az extension add --name containerapp --upgrade -y >/dev/null 2>&1 || true
@@ -65,7 +66,9 @@ cat <<FIM
     $SB_SEND
 
 Próximos passos:
-  1. Publicar a Function:   cd function && mvn clean package azure-functions:deploy -DfunctionAppName=$FUNC -DfunctionResourceGroup=$RG
+  1. Publicar a Function (repositório minicrm-function):
+       git clone https://github.com/Le3Dev/minicrm-function.git && cd minicrm-function
+       mvn clean package azure-functions:deploy -DfunctionAppName=$FUNC -DfunctionResourceGroup=$RG
   2. Pegar a chave da rota indicadores para o BFF:
        az functionapp function keys list -g $RG -n $FUNC --function-name indicadores --query default -o tsv
   3. No Atlas: Network Access → Add IP → 0.0.0.0/0 (o IP de saída do Container Apps não é fixo).

@@ -8,7 +8,7 @@
 | C4 — Componentes do BFF | `c4/4-componentes-bff.png` | `c4/4-componentes-bff.mmd` |
 | Sequência do evento OportunidadeGanha | `c4/5-sequencia-evento.png` | `c4/5-sequencia-evento.mmd` |
 | Canvas de arquitetura | `canvas/canvas.png` | `canvas/canvas.html` |
-| Contrato do evento (AsyncAPI) | `../function/src/main/resources/docs/asyncapi.yaml` | — |
+| Contrato do evento (AsyncAPI) | [asyncapi.yaml no minicrm-function](https://github.com/Le3Dev/minicrm-function/blob/main/src/main/resources/docs/asyncapi.yaml) | — |
 
 Nos diagramas, **azul** = componentes da dupla A e **laranja** = componentes do aluno B.
 
