@@ -11,3 +11,4 @@ coverage/
 # segredos
 .env
 local.settings.json
+tsconfig.tsbuildinfo
