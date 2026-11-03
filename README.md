@@ -12,8 +12,8 @@ Este é o **repositório central** do sistema: frontends (Shell e microfrontends
 | --- | --- | --- | --- | --- |
 | [minicrm-ms-clientes](https://github.com/Le3Dev/minicrm-ms-clientes) | MS Clientes (MongoDB Atlas) | Java 21, Spring Boot 3.5 | A | pronto, 33 testes |
 | [minicrm-function](https://github.com/Le3Dev/minicrm-function) | Azure Function: `/api/indicadores` (HTTP) + `oportunidade-ganha` (Service Bus) | Java 21 | A | pronto, 29 testes |
-| [minicrm-ms-oportunidades](https://github.com/Le3Dev/minicrm-ms-oportunidades) | MS Oportunidades / funil (Azure SQL) | Java 21, Spring Boot 3.5 | B | esqueleto com 2 slices + TODO |
-| [minicrm-bff](https://github.com/Le3Dev/minicrm-bff) | BFF (`GET /aggregated-data` + proxy) | Node.js (NestJS) | B | a fazer |
+| [minicrm-ms-oportunidades](https://github.com/Le3Dev/minicrm-ms-oportunidades) | MS Oportunidades / funil (Azure SQL) | Java 21, Spring Boot 3.5 | B | pronto, 25 testes (6 slices) |
+| [minicrm-bff](https://github.com/Le3Dev/minicrm-bff) | BFF (`GET /aggregated-data` + proxy) | Node.js (NestJS) | B | pronto, 37 testes |
 | **minicrm-arquitetura** (este) | Frontends, docs e infra | — | os dois | ver abaixo |
 
 ## O que fica neste repositório
@@ -21,8 +21,8 @@ Este é o **repositório central** do sistema: frontends (Shell e microfrontends
 | Pasta | Conteúdo | Dono | Situação |
 | --- | --- | --- | --- |
 | [`mf-clientes`](mf-clientes) | Microfrontend de Clientes (remote) | A | pronto, 9 testes |
-| `mf-oportunidades` | Microfrontend do funil (remote) | B | a fazer |
-| `shell` | Shell (host): menu, seletor de usuário, dashboard | B | a fazer |
+| [`mf-oportunidades`](mf-oportunidades) | Microfrontend do funil (remote) | B | pronto, 13 testes |
+| [`shell`](shell) | Shell (host): menu, seletor de usuário, dashboard | B | pronto, 8 testes |
 | [`docs`](docs) | C4 (contexto, containers, componentes), sequência do evento, Canvas, ARC42 | os dois | C4 e Canvas prontos |
 | [`infra/aws`](infra/aws) | AWS API Gateway (API key, throttling, CORS) | A | script pronto |
 | [`infra/azure`](infra/azure) | Service Bus, Container Apps, Function App | A | script pronto |
