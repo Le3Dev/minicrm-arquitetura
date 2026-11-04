@@ -1,0 +1,69 @@
+/* Estilos do Shell (host). Os MFs trazem o próprio CSS isolado (.mfc e .mfo). */
+.sh {
+  --sh-papel: #f0eee9;
+  --sh-superficie: #ffffff;
+  --sh-superficie-alt: #f6f5f1;
+  --sh-tinta: #222222;
+  --sh-tinta-suave: #4a4a46;
+  --sh-muted: #7a776e;
+  --sh-traco: #333333;
+  --sh-traco-suave: #d8d5cc;
+  --sh-destaque: #2a78d6;
+  --sh-destaque-tinta: #1b5ca8;
+  --sh-destaque-suave: #eef4fc;
+  --sh-ambar: #b05a2a;
+  --sh-ambar-suave: #faeee2;
+  --sh-vermelho: #c0392b;
+  --sh-vermelho-suave: #fbeae7;
+  --sh-mao: 'Patrick Hand', system-ui, sans-serif;
+  --sh-corpo: 'Inter', system-ui, -apple-system, sans-serif;
+  min-height: 100vh;
+  background: var(--sh-papel);
+  color: var(--sh-tinta);
+  font-family: var(--sh-corpo);
+  font-size: 14px;
+  line-height: 1.45;
+}
+.sh *, .sh *::before, .sh *::after { box-sizing: border-box; }
+.sh h1, .sh h2 { font-family: var(--sh-mao); font-weight: 400; margin: 0; }
+.sh h1 { font-size: 34px; line-height: 1.1; }
+.sh h2 { font-size: 22px; }
+.sh p { margin: 0; }
+.sh-muted { color: var(--sh-muted); }
+
+.sh-topo { display: flex; align-items: center; gap: 24px; padding: 12px 24px; background: var(--sh-superficie); border-bottom: 1.5px solid var(--sh-traco); flex-wrap: wrap; }
+.sh-marca { font-family: var(--sh-mao); font-size: 28px; }
+.sh-menu { display: flex; gap: 6px; flex: 1; }
+.sh-menu a { padding: 7px 14px; border-radius: 7px; color: var(--sh-tinta-suave); text-decoration: none; border: 1.5px solid transparent; }
+.sh-menu a:hover { background: var(--sh-superficie-alt); }
+.sh-menu a.active { background: var(--sh-destaque-suave); color: var(--sh-destaque-tinta); border-color: var(--sh-destaque); font-weight: 600; }
+.sh-menu a:focus-visible, .sh-btn:focus-visible, .sh-seletor select:focus-visible { outline: 2px solid var(--sh-destaque); outline-offset: 2px; }
+.sh-seletor { display: flex; align-items: center; gap: 8px; color: var(--sh-tinta-suave); }
+.sh-seletor select { font: inherit; padding: 7px 11px; border: 1.5px solid var(--sh-traco); border-radius: 7px; background: var(--sh-superficie); color: var(--sh-tinta); }
+
+.sh-btn { font: inherit; cursor: pointer; padding: 7px 14px; border-radius: 7px; border: 1.5px solid var(--sh-traco); background: var(--sh-superficie); color: var(--sh-tinta); box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.12); }
+.sh-btn:hover { transform: translate(-1px, -1px); }
+
+.sh-pagina { max-width: 1120px; margin: 0 auto; padding: 24px; }
+.sh-pagina[aria-busy='true'] { opacity: 0.85; }
+.sh-pagina__topo { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; margin-bottom: 20px; flex-wrap: wrap; }
+.sh-cartoes { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin-bottom: 14px; }
+.sh-duas-colunas { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 14px; margin-bottom: 14px; }
+.sh-cartao { background: var(--sh-superficie); border: 1.5px solid var(--sh-traco); border-radius: 10px; box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.12); padding: 16px 18px; }
+.sh-cartao h2 { margin-bottom: 8px; color: var(--sh-tinta-suave); }
+.sh-grande { font-family: var(--sh-mao); font-size: 38px; line-height: 1.1; }
+.sh-status { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 4px; }
+.sh-status li { display: flex; justify-content: space-between; }
+.sh-tabela { border-collapse: collapse; width: 100%; }
+.sh-tabela th { text-align: left; font-size: 12px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--sh-muted); padding: 6px 8px; border-bottom: 1.5px solid var(--sh-traco); }
+.sh-tabela td { padding: 7px 8px; border-bottom: 1px solid var(--sh-traco-suave); }
+.sh-vazio { text-align: center; color: var(--sh-muted); padding: 24px 12px; }
+.sh-erro { margin: 16px 24px; padding: 12px 16px; border: 1.5px solid var(--sh-vermelho); border-radius: 7px; background: var(--sh-vermelho-suave); color: var(--sh-vermelho); display: grid; gap: 8px; justify-items: start; }
+.sh-pagina .sh-erro { margin: 0 0 14px; }
+.sh-aviso { margin-bottom: 14px; padding: 10px 14px; border: 1.5px solid var(--sh-ambar); border-radius: 7px; background: var(--sh-ambar-suave); color: var(--sh-ambar); }
+
+@media (max-width: 640px) {
+  .sh-topo { padding: 12px 16px; gap: 12px; }
+  .sh-menu { order: 3; flex-basis: 100%; }
+  .sh-pagina { padding: 16px; }
+}

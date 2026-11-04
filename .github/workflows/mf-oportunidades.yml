@@ -1,0 +1,28 @@
+name: mf-oportunidades
+
+on:
+  push:
+    branches: [main]
+    paths: ['mf-oportunidades/**', '.github/workflows/mf-oportunidades.yml']
+  pull_request:
+    paths: ['mf-oportunidades/**']
+  workflow_dispatch:
+
+defaults:
+  run:
+    working-directory: mf-oportunidades
+
+jobs:
+  testes:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: mf-oportunidades/package-lock.json
+      - run: npm ci
+      - run: npm run lint:types
+      - run: npm test
+      - run: npm run build
