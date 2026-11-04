@@ -25,7 +25,7 @@ Este é o **repositório central** do sistema: frontends (Shell e microfrontends
 | [`shell`](shell) | Shell (host): menu, seletor de usuário, dashboard | B | pronto, 8 testes |
 | [`docs`](docs) | C4 (contexto, containers, componentes), sequência do evento, Canvas, ARC42 | os dois | C4 e Canvas prontos |
 | [`infra/aws`](infra/aws) | AWS API Gateway (API key, throttling, CORS) | A | script pronto |
-| [`infra/azure`](infra/azure) | Service Bus, Container Apps, Function App | A | script pronto |
+| [`infra/azure`](infra/azure) | A: Service Bus, MS Clientes, Function. B: Azure SQL, MS Oportunidades, BFF | os dois | scripts prontos |
 
 Cada frontend é publicado separadamente na Vercel (mesmo repositório, Root Directory diferente: `shell`, `mf-clientes`, `mf-oportunidades`).
 
