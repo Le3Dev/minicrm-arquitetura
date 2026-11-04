@@ -5,6 +5,8 @@
 # Pré-requisitos: AWS CLI v2 configurado (aws configure) e a URL pública do BFF.
 # Uso: BFF_URL=https://bff.<id>.brazilsouth.azurecontainerapps.io ./infra/aws/criar-gateway.sh
 set -euo pipefail
+# Git Bash (Windows) reescreve argumentos que começam com "/" (ex.: path=/name); desliga isso.
+export MSYS_NO_PATHCONV=1 MSYS2_ARG_CONV_EXCL="*"
 : "${BFF_URL:?Defina BFF_URL com a URL pública do BFF (sem barra no final)}"
 REGIAO="${AWS_REGION:-us-east-1}"
 NOME="${NOME_API:-minicrm-gateway}"
