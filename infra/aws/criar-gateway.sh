@@ -10,8 +10,10 @@ REGIAO="${AWS_REGION:-us-east-1}"
 NOME="${NOME_API:-minicrm-gateway}"
 PASTA="$(cd "$(dirname "$0")" && pwd)"
 
-DEF=$(mktemp --suffix=.yaml)
-sed "s#__BFF_URL__#${BFF_URL%/}#g" "$PASTA/api-gateway.openapi.yaml" > "$DEF"
+# Arquivo temporário na pasta do script e caminho relativo: o aws.exe do Windows (Git Bash) não enxerga /tmp.
+cd "$PASTA"
+DEF=".gateway-def.tmp.yaml"
+sed "s#__BFF_URL__#${BFF_URL%/}#g" api-gateway.openapi.yaml > "$DEF"
 
 echo "→ Importando a REST API..."
 API_ID=$(aws apigateway import-rest-api --region "$REGIAO" --parameters endpointConfigurationTypes=REGIONAL \

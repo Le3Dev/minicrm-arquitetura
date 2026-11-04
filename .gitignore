@@ -12,3 +12,4 @@ coverage/
 .env
 local.settings.json
 tsconfig.tsbuildinfo
+infra/aws/.gateway-def.tmp.yaml
