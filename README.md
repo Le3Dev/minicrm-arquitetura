@@ -10,8 +10,8 @@ Este é o **repositório central** do sistema: frontends (Shell e microfrontends
 
 | Repositório | Componente | Tecnologia | Dono | Situação |
 | --- | --- | --- | --- | --- |
-| [minicrm-ms-clientes](https://github.com/Le3Dev/minicrm-ms-clientes) | MS Clientes (MongoDB Atlas) | Java 21, Spring Boot 3.5 | A | pronto, 33 testes |
-| [minicrm-function](https://github.com/Le3Dev/minicrm-function) | Azure Function: `/api/indicadores` (HTTP) + `oportunidade-ganha` (Service Bus) | Java 21 | A | pronto, 29 testes |
+| [minicrm-ms-clientes](https://github.com/Le3Dev/minicrm-ms-clientes) | MS Clientes (MongoDB Atlas) | Java 21, Spring Boot 3.5 | A | no ar, 33 testes |
+| [minicrm-function](https://github.com/Le3Dev/minicrm-function) | Azure Function: `/api/indicadores` (HTTP) + `oportunidade-ganha` (Service Bus) | Java 21 | A | no ar, 29 testes |
 | [minicrm-ms-oportunidades](https://github.com/Le3Dev/minicrm-ms-oportunidades) | MS Oportunidades / funil (Azure SQL) | Java 21, Spring Boot 3.5 | B | pronto, 25 testes (6 slices) |
 | [minicrm-bff](https://github.com/Le3Dev/minicrm-bff) | BFF (`GET /aggregated-data` + proxy) | Node.js (NestJS) | B | pronto, 37 testes |
 | **minicrm-arquitetura** (este) | Frontends, docs e infra | — | os dois | ver abaixo |
@@ -20,12 +20,12 @@ Este é o **repositório central** do sistema: frontends (Shell e microfrontends
 
 | Pasta | Conteúdo | Dono | Situação |
 | --- | --- | --- | --- |
-| [`mf-clientes`](mf-clientes) | Microfrontend de Clientes (remote) | A | pronto, 9 testes |
+| [`mf-clientes`](mf-clientes) | Microfrontend de Clientes (remote) | A | no ar, 9 testes |
 | [`mf-oportunidades`](mf-oportunidades) | Microfrontend do funil (remote) | B | pronto, 13 testes |
 | [`shell`](shell) | Shell (host): menu, seletor de usuário, dashboard | B | pronto, 8 testes |
-| [`docs`](docs) | C4 (contexto, containers, componentes), sequência do evento, Canvas, ARC42 | os dois | C4 e Canvas prontos |
-| [`infra/aws`](infra/aws) | AWS API Gateway (API key, throttling, CORS) | A | script pronto |
-| [`infra/azure`](infra/azure) | A: Service Bus, MS Clientes, Function. B: Azure SQL, MS Oportunidades, BFF | os dois | scripts prontos |
+| [`docs`](docs) | C4 (contexto, containers, componentes), sequência do evento, Canvas, ARC42 | os dois | C4, Canvas e ARC42 prontos |
+| [`infra/aws`](infra/aws) | AWS API Gateway (API key, throttling, CORS) | A | no ar |
+| [`infra/azure`](infra/azure) | A: Service Bus, MS Clientes, Function. B: Azure SQL, MS Oportunidades, BFF | os dois | scripts usados no deploy |
 
 Cada frontend é publicado separadamente na Vercel (mesmo repositório, Root Directory diferente: `shell`, `mf-clientes`, `mf-oportunidades`).
 
@@ -57,7 +57,7 @@ Cada frontend é publicado separadamente na Vercel (mesmo repositório, Root Dir
 
 Imagens: `leandrocanha/minicrm-ms-clientes`, `leandrocanha/minicrm-ms-oportunidades`, `leandrocanha/minicrm-bff`. O Docker Hub só aceita `usuario/repositorio`, por isso o nome usa hífen em vez de `usuario/minicrm/servico`.
 
-## Links da entrega (preencher após o deploy)
+## Links da entrega
 
 | Item | URL |
 | --- | --- |
@@ -66,16 +66,18 @@ Imagens: `leandrocanha/minicrm-ms-clientes`, `leandrocanha/minicrm-ms-oportunida
 | GitHub — Function | https://github.com/Le3Dev/minicrm-function |
 | GitHub — MS Oportunidades | https://github.com/Le3Dev/minicrm-ms-oportunidades |
 | GitHub — BFF | https://github.com/Le3Dev/minicrm-bff |
-| Front (Shell) | |
-| MF Clientes | |
-| MF Oportunidades | |
-| API Gateway | |
-| Swagger BFF | |
-| Swagger MS Clientes | |
-| Swagger MS Oportunidades | |
-| Swagger / Eventos da Function | |
+| Front (Shell) | https://shell-zeta-puce.vercel.app |
+| MF Clientes | https://minicrm-arquitetura.vercel.app |
+| MF Oportunidades | https://minicrm-arquitetura-1xxh.vercel.app |
+| API Gateway | https://4sbv1bj2qj.execute-api.us-east-1.amazonaws.com/prod (exige o header `x-api-key`) |
+| Swagger BFF | https://bff.kindbay-40f0b2c9.centralus.azurecontainerapps.io/docs |
+| Swagger MS Clientes | https://ms-clientes.kindbay-40f0b2c9.centralus.azurecontainerapps.io/docs |
+| Swagger MS Oportunidades | https://ms-oportunidades.kindbay-40f0b2c9.centralus.azurecontainerapps.io/docs |
+| Swagger / Eventos da Function | https://func-minicrm-10059.azurewebsites.net/api/docs · https://func-minicrm-10059.azurewebsites.net/api/eventos |
 | Docker Hub | https://hub.docker.com/u/leandrocanha |
-| Vídeo (YouTube, não listado) | |
+| Vídeo (YouTube, não listado) | _preencher após o upload_ |
+
+**Testes automatizados (CI verde):** MS Clientes 33 · Function 29 · MS Oportunidades 25 · BFF 37 · MF Clientes 9 · MF Oportunidades 13 · Shell 8 = **154**.
 
 ## Alunos
 
