@@ -75,7 +75,7 @@ Imagens: `leandrocanha/minicrm-ms-clientes`, `leandrocanha/minicrm-ms-oportunida
 | Swagger MS Oportunidades | https://ms-oportunidades.kindbay-40f0b2c9.centralus.azurecontainerapps.io/docs |
 | Swagger / Eventos da Function | https://func-minicrm-10059.azurewebsites.net/api/docs · https://func-minicrm-10059.azurewebsites.net/api/eventos |
 | Docker Hub | https://hub.docker.com/u/leandrocanha |
-| Vídeo (YouTube, não listado) | _preencher após o upload_ |
+| Vídeo (YouTube, não listado) | [https://youtu.be/f_G2twBHaKU](https://youtu.be/f_G2twBHaKU) |
 
 **Testes automatizados (CI verde):** MS Clientes 33 · Function 29 · MS Oportunidades 25 · BFF 37 · MF Clientes 9 · MF Oportunidades 13 · Shell 8 = **154**.
 
