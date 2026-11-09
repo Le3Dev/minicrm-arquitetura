@@ -4,8 +4,8 @@ Microfrontend do **Funil de vendas** do Mini CRM, em **React 19 + Vite + Module 
 
 | | URL |
 | --- | --- |
-| MF publicado (Vercel) | `https://<mf-oportunidades>.vercel.app` |
-| Remote entry | `https://<mf-oportunidades>.vercel.app/remoteEntry.js` |
+| MF publicado (Vercel) | `https://minicrm-arquitetura-1xxh.vercel.app` |
+| Remote entry | `https://minicrm-arquitetura-1xxh.vercel.app/remoteEntry.js` |
 
 O MF **nunca chama o microsserviço direto**: todas as chamadas vão para o **AWS API Gateway** (header `x-api-key`), que encaminha ao **BFF**, que fala com o MS Oportunidades (Azure SQL) e o MS Clientes.
 
@@ -35,7 +35,7 @@ federation({
     mfOportunidades: {
       type: 'module',
       name: 'mfOportunidades',
-      entry: 'https://<mf-oportunidades>.vercel.app/remoteEntry.js',
+      entry: 'https://minicrm-arquitetura-1xxh.vercel.app/remoteEntry.js',
     },
   },
   shared: { react: { singleton: true }, 'react-dom': { singleton: true } },
@@ -86,7 +86,7 @@ npm run build && npm run preview
 
 ## Deploy na Vercel
 
-Importe o repositório na Vercel com **Root Directory = `mf-oportunidades`**, framework Vite, e as variáveis `VITE_API_URL` (URL do stage do API Gateway; antes disso, a do BFF), `VITE_API_KEY` e `VITE_USUARIO_ID=u3`. O `vercel.json` libera CORS para o shell baixar o `remoteEntry.js`. Confira que `https://<seu-mf>.vercel.app/remoteEntry.js` abre no navegador: essa é a URL que vai no Shell.
+Importe o repositório na Vercel com **Root Directory = `mf-oportunidades`**, framework Vite, e as variáveis `VITE_API_URL` (URL do stage do API Gateway; antes disso, a do BFF), `VITE_API_KEY` e `VITE_USUARIO_ID=u3`. O `vercel.json` libera CORS para o shell baixar o `remoteEntry.js`. Confira que `https://minicrm-arquitetura-1xxh.vercel.app/remoteEntry.js` abre no navegador: essa é a URL que vai no Shell.
 
 ## Alunos
 

@@ -4,7 +4,7 @@
 
 | | URL |
 | --- | --- |
-| Shell publicado (Vercel) | `https://<shell>.vercel.app` |
+| Shell publicado (Vercel) | `https://shell-zeta-puce.vercel.app` |
 
 Toda chamada de dados vai ao **AWS API Gateway** (header `x-api-key`), que encaminha ao **BFF**. O Shell só chama `GET /aggregated-data`; as demais rotas são chamadas pelos MFs.
 

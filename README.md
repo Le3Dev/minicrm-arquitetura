@@ -12,8 +12,8 @@ Este é o **repositório central** do sistema: frontends (Shell e microfrontends
 | --- | --- | --- | --- | --- |
 | [minicrm-ms-clientes](https://github.com/Le3Dev/minicrm-ms-clientes) | MS Clientes (MongoDB Atlas) | Java 21, Spring Boot 3.5 | A | no ar, 33 testes |
 | [minicrm-function](https://github.com/Le3Dev/minicrm-function) | Azure Function: `/api/indicadores` (HTTP) + `oportunidade-ganha` (Service Bus) | Java 21 | A | no ar, 29 testes |
-| [minicrm-ms-oportunidades](https://github.com/Le3Dev/minicrm-ms-oportunidades) | MS Oportunidades / funil (Azure SQL) | Java 21, Spring Boot 3.5 | B | pronto, 25 testes (6 slices) |
-| [minicrm-bff](https://github.com/Le3Dev/minicrm-bff) | BFF (`GET /aggregated-data` + proxy) | Node.js (NestJS) | B | pronto, 37 testes |
+| [minicrm-ms-oportunidades](https://github.com/Le3Dev/minicrm-ms-oportunidades) | MS Oportunidades / funil (Azure SQL) | Java 21, Spring Boot 3.5 | B | no ar, 25 testes (6 slices) |
+| [minicrm-bff](https://github.com/Le3Dev/minicrm-bff) | BFF (`GET /aggregated-data` + proxy) | Node.js (NestJS) | B | no ar, 37 testes |
 | **minicrm-arquitetura** (este) | Frontends, docs e infra | — | os dois | ver abaixo |
 
 ## O que fica neste repositório
@@ -21,8 +21,8 @@ Este é o **repositório central** do sistema: frontends (Shell e microfrontends
 | Pasta | Conteúdo | Dono | Situação |
 | --- | --- | --- | --- |
 | [`mf-clientes`](mf-clientes) | Microfrontend de Clientes (remote) | A | no ar, 9 testes |
-| [`mf-oportunidades`](mf-oportunidades) | Microfrontend do funil (remote) | B | pronto, 13 testes |
-| [`shell`](shell) | Shell (host): menu, seletor de usuário, dashboard | B | pronto, 8 testes |
+| [`mf-oportunidades`](mf-oportunidades) | Microfrontend do funil (remote) | B | no ar, 13 testes |
+| [`shell`](shell) | Shell (host): menu, seletor de usuário, dashboard | B | no ar, 8 testes |
 | [`docs`](docs) | C4 (contexto, containers, componentes), sequência do evento, Canvas, ARC42 | os dois | C4, Canvas e ARC42 prontos |
 | [`infra/aws`](infra/aws) | AWS API Gateway (API key, throttling, CORS) | A | no ar |
 | [`infra/azure`](infra/azure) | A: Service Bus, MS Clientes, Function. B: Azure SQL, MS Oportunidades, BFF | os dois | scripts usados no deploy |
@@ -56,6 +56,21 @@ Cada frontend é publicado separadamente na Vercel (mesmo repositório, Root Dir
 - **Frontends** (este repositório): um workflow por pasta em `.github/workflows`, disparado só quando ela muda.
 
 Imagens: `leandrocanha/minicrm-ms-clientes`, `leandrocanha/minicrm-ms-oportunidades`, `leandrocanha/minicrm-bff`. O Docker Hub só aceita `usuario/repositorio`, por isso o nome usa hífen em vez de `usuario/minicrm/servico`.
+
+## Como rodar localmente
+
+Cada serviço tem as instruções no próprio README. Em resumo (JDK 21, Node 20+ e Docker):
+
+```bash
+# serviços Java (MS Clientes :8081, MS Oportunidades, Function)
+mvn spring-boot:run            # dentro de cada repositório; sem banco configurado usam dados em memória
+# BFF (NestJS)
+npm ci && npm run start:dev    # dentro de minicrm-bff
+# frontends (este repositório)
+cd shell && npm ci && npm run dev              # mesmo para mf-clientes (:5001) e mf-oportunidades (:5002)
+```
+
+Para a **demonstração use as URLs da nuvem** da seção abaixo (o vídeo não usa localhost).
 
 ## Links da entrega
 

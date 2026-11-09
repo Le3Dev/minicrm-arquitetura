@@ -4,8 +4,8 @@ Microfrontend da tela de **Clientes** do Mini CRM, em **React 19 + Vite + Module
 
 | | URL |
 | --- | --- |
-| MF publicado (Vercel) | `https://<mf-clientes>.vercel.app` |
-| Remote entry | `https://<mf-clientes>.vercel.app/remoteEntry.js` |
+| MF publicado (Vercel) | `https://minicrm-arquitetura.vercel.app` |
+| Remote entry | `https://minicrm-arquitetura.vercel.app/remoteEntry.js` |
 
 O MF **nunca chama o microsserviço direto**: todas as chamadas vão para o **AWS API Gateway** (header `x-api-key`), que encaminha ao **BFF**, que fala com o MS Clientes.
 
@@ -29,7 +29,7 @@ federation({
     mfClientes: {
       type: 'module',
       name: 'mfClientes',
-      entry: 'https://<mf-clientes>.vercel.app/remoteEntry.js',
+      entry: 'https://minicrm-arquitetura.vercel.app/remoteEntry.js',
     },
   },
   shared: { react: { singleton: true }, 'react-dom': { singleton: true } },
